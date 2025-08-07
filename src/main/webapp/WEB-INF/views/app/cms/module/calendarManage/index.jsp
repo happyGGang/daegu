@@ -172,161 +172,168 @@ $(function(){
 });
 </script>
 <c:set var="plan_date" value="${fn:split(calendarManage.plan_date, '-')}" />
-<form:form modelAttribute="calendarManage">
-	<form:hidden path="plan_date"/>
+<div class="container-box">
+    <div class="page-header">
+        <div>일정관리</div>
+    </div>
+    <div class="main-content">
+        <div style="width: 100%">
+            <form:form modelAttribute="calendarManage">
+            <form:hidden path="plan_date"/>
+            <div class="infodesk">
+                <c:choose>
+                    <c:when test="${fn:length(subHomepageList) > 0}">
+                        도서관 :
+                        <form:select id="homepage_id_1" path="homepage_id">
+                            <c:forEach items="${subHomepageList}" var="i">
+                                <form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
+                            </c:forEach>
+                            <c:if test="${asideHomepageId eq 'h53'}">
+                                <form:option value="h78">작은도서관</form:option>
+                            </c:if>
 
-	<div class="infodesk">
-		<c:choose>
-			<c:when test="${fn:length(subHomepageList) > 0}">
-				도서관 :
-				<form:select id="homepage_id_1" path="homepage_id">
-					<c:forEach items="${subHomepageList}" var="i">
-						<form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
-					</c:forEach>
-					<c:if test="${asideHomepageId eq 'h53'}">
-						<form:option value="h78">작은도서관</form:option>
-					</c:if>
-
-				</form:select>
-			</c:when>
-			<c:otherwise>
-				<form:hidden id="homepage_id_1" path="homepage_id"/>
-			</c:otherwise>
-		</c:choose>
-
-		<div class="monthYear">
-			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달1</span></a>
-			<form:select path="plan_year" class="selectmenu" style="width:100px;"></form:select>
-	        <form:select path="plan_month" class="selectmenu" style="width:100px;"></form:select>
-	        <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
-	    </div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn3 left" id="changeView"><i class="fa fa-list"></i><span>리스트형 전환</span></a>
-		</div>
-		<c:if test="${authC}">
-		<div class="button btn-group inline">
-			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>일정등록</span></a>
-		</div>
-			<c:if test="${calendarManage.homepage_id ne 'h78'}">
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(월단위)</span></a>
-		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las-year"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(년단위)</span></a>
-		</div>
-			</c:if>
-		</c:if>
-	</div>
-</form:form>
-	<div class="table-wrap" id="calTable">
-		<table class="type1 center">
-			<colgroup>
-				<col width="100px" span="7"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">일요일</th>
-					<th scope="col">월요일</th>
-					<th scope="col">화요일</th>
-					<th scope="col">수요일</th>
-					<th scope="col">목요일</th>
-					<th scope="col">금요일</th>
-					<th scope="col">토요일</th>
-				</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="i" varStatus="status" items="${calendarList}">
-				<tr>
-					<c:choose>
-					<c:when test="${i.sun eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.sun}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}"  teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="1"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.mon eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.mon}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}"  teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="2"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.tue eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.tue}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="3"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.wed eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.wed}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="4"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.thu eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.thu}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="5"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.fri eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.fri}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="6"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.sat eq null}">
-						<td class="top none"></td>
-					</c:when>
-					<c:otherwise>
-						<td class="top">
-							<p class="date">${i.sat}</p>
-							<c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
-							<tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="7"/>
-						</td>
-					</c:otherwise>
-					</c:choose>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-	</div>
-
+                        </form:select>
+                    </c:when>
+                    <c:otherwise>
+                        <form:hidden id="homepage_id_1" path="homepage_id"/>
+                    </c:otherwise>
+                </c:choose>
+                <div class="table-action-wrapper">
+                    <div class="monthYear btn-wrapper">
+                        <a id="before-btn" href="#prev" class="custom-btn" style="padding: 8px 10px"><span class="blind" ><img src="/resources/cms/img/main/arrow.svg" alt="" style="transform: rotate(180deg)"/> </span></a>
+                        <form:select path="plan_year" class="custom-filter" style="width:100px;"></form:select>
+                        <form:select path="plan_month" class="custom-filter" style="width:100px;"></form:select>
+                        <a id="next-btn" href="#next" class="custom-btn" style="padding: 8px 10px"><span class="blind"><img src="/resources/cms/img/main/arrow.svg" alt=""/> </span></a>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="button btn-group inline">
+                            <a href="" class="icon-btn navy" id="changeView"><img src="/resources/cms/img/main/plus.svg" alt=""><span>리스트형 전환</span></a>
+                        </div>
+                        <c:if test="${authC}">
+                        <div class="button btn-group inline">
+                            <a href="" class="icon-btn navy" id="dialog-add"><img src="/resources/cms/img/main/plus.svg" alt=""><span>일정등록</span></a>
+                        </div>
+                            <c:if test="${calendarManage.homepage_id ne 'h78'}">
+                        <div class="button btn-group inline">
+                            <a href="" class="icon-btn navy" id="dialog-add-las"><img src="/resources/cms/img/main/plus.svg" alt=""><span>자료관리 휴관일 가져오기(월단위)</span></a>
+                        </div>
+                        <div class="button btn-group inline">
+                            <a href="" class="icon-btn navy" id="dialog-add-las-year"><img src="/resources/cms/img/main/plus.svg" alt=""><span>자료관리 휴관일 가져오기(년단위)</span></a>
+                        </div>
+                    </div>
+                </div>
+                    </c:if>
+                </c:if>
+            </div>
+        </form:form>
+            <div class="table-wrap" id="calTable">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">일요일</th>
+                            <th scope="col">월요일</th>
+                            <th scope="col">화요일</th>
+                            <th scope="col">수요일</th>
+                            <th scope="col">목요일</th>
+                            <th scope="col">금요일</th>
+                            <th scope="col">토요일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="i" varStatus="status" items="${calendarList}">
+                        <tr>
+                            <c:choose>
+                            <c:when test="${i.sun eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.sun}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}"  teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="1"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.mon eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.mon}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}"  teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="2"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.tue eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.tue}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="3"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.wed eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.wed}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="4"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.thu eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.thu}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="5"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.fri eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.fri}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="6"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                            <c:when test="${i.sat eq null}">
+                                <td class="top none"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="top">
+                                    <p class="date">${i.sat}</p>
+                                    <c:set var="plan_date" value="${calendarManage.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
+                                    <tag:calendarManage plan_date="${plan_date}" calendarManageList="${calendarManageList}" okApplyList="${okApplyList}" teachList="${teachList}" facilityReqList="${facilityReqList}" moveList="${moveList}" mode="admin" dayCode="7"/>
+                                </td>
+                            </c:otherwise>
+                            </c:choose>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="dialog-1" class="dialog-common" title="일정등록">
 </div>

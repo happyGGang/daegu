@@ -84,7 +84,12 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="teacher_idx"/>
 </form:form>
-<form:form id="teacherListForm"  modelAttribute="teacher" action="index.do" >
+<div class="container-box">
+    <div class="page-header">
+        <div>강사관리</div>
+    </div>
+    <div class="main-content">
+        <form:form id="teacherListForm"  modelAttribute="teacher" action="index.do" style="width:100%;">
 <%--	<form:hidden id="homepage_id_1" path="homepage_id"/>--%>
 	<c:choose>
 		<c:when test="${fn:length(subHomepageList) > 0}">
@@ -95,27 +100,29 @@ $(function() {
 		</c:otherwise>
 	</c:choose>
 
-	<div class="infodesk">
-		검색 결과 : 총 ${teacherListCount}건
-		<div class="button">
-			<c:if test="${authC}">
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
-			</c:if>
-		</div>
+	<div class="table-action-wrapper">
+        <p class="total-count">총 ${teacherListCount}건</p>
+        <div class="btn-wrapper">
+            <c:if test="${authC}">
+                <a href="" class="icon-btn navy" id="dialog-add" >
+                    <img src="/resources/cms/img/main/plus.svg" alt="">
+                    <div>등록</div>
+                </a>
+            </c:if>
+            <div>
+                <a href="#" id="excelDownload" class="icon-btn green">
+                    <img src="/resources/cms/img/main/excel.svg" alt="">
+                    <div>엑셀저장</div>
+                </a>
+                <a href="#" id="csvDownload" class="icon-btn green">
+                    <img src="/resources/cms/img/main/csv.svg" alt="">
+                    <div>CSV저장</div>
+                </a>
+            </div>
+        </div>
 	</div>
 	<!-- 교육소식 관리 table -->
-	<table class="type1 center">
-		<colgroup>
-			<col width="50" />
-			<col width="150" />
-			<col width="50" />
-			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-		</colgroup>
+	<table class="custom-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -143,16 +150,16 @@ $(function() {
 						</c:if>
 					</td>
 					<td>
-						<a href="" class="btn dialog-history" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">이력</a>
-						<a href="" class="btn btn1 cert-down-btn" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">경력증명서</a>
+						<a href="" class="custom-btn dialog-history" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">이력</a>
+						<a href="" class="custom-btn btn1 cert-down-btn" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">경력증명서</a>
 					</td>
 					<td>${i.add_date}</td>
 					<td>
 						<c:if test="${authU}">
-							<a href="" class="btn dialog-modify" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">수정</a>
+							<a href="" class="custom-btn dialog-modify" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">수정</a>
 						</c:if>
 						<c:if test="${authD}">
-							<a href="" class="btn delete-btn" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">삭제</a>
+							<a href="" class="custom-btn delete-btn" keyValue1="${i.homepage_id}" keyValue2="${i.teacher_idx}">삭제</a>
 						</c:if>
 					</td>
 				</tr>
@@ -167,20 +174,22 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#teacherListForm"/>
 	</jsp:include>
-
-	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="TEACHER_NAME">강사명</form:option>
-				<form:option value="TEACHER_CELL_PHONE">휴대전화번호</form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
-		</fieldset>
-	</div>
+            <div class="table-search-bar">
+                <fieldset class="search-bar">
+                    <form:select path="search_type" cssClass="custom-filter">
+                        <form:option value="TEACHER_NAME">강사명</form:option>
+                        <form:option value="TEACHER_CELL_PHONE">휴대전화번호</form:option>
+                    </form:select>
+                    <form:input path="search_text" cssClass="custom-search"/>
+                    <div id="search_btn" class="icon-btn black">
+                        <img alt="" src="/resources/cms/img/main/search.svg">
+                        <div>검색</div>
+                    </div>
+                </fieldset>
+            </div>
 </form:form>
+    </div>
+</div>
 
 <div id="dialog-1" class="dialog-common" title="강사 정보"></div>
 <div id="dialog-2" class="dialog-common" title="강사 이력"></div>
