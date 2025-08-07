@@ -223,11 +223,8 @@
                     <col width="33%"/>
                 </colgroup>
                 <thead>
-                <tr>
-                    <th>상위그룹명</th>
-                    <th>그룹명</th>
-                    <th>설명</th>
-                </tr>
+
+                
                 </thead>
                 <tbody>
                 <tr>

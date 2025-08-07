@@ -374,8 +374,7 @@
                                 </tr>
                                 <tr>
                                     <th>링크변수</th>
-                                    <td id="edit_moduleLinkParam"><input id="moduleLinkParam" type="text" class="text"
-                                                                         value="${menu.menu_url_param}"></td>
+                                    <td id="edit_moduleLinkParam"><input id="moduleLinkParam" type="text" class="custom-input" value="${menu.menu_url_param}"></td>
                                 </tr>
                                 <tr class="moduleHtml" style="${moduleManage.module_idx eq 25?'':'display:none'}">
                                     <th>HTML</th>
