@@ -141,7 +141,10 @@
                     </div>
 
                     <c:if test="${authC}">
-                        <a href="" class="icon-btn nav" id="dialog-add"><i class="fa fa-plus"></i><span>팝업존등록</span></a>
+                        <a href="" class="icon-btn nav" id="dialog-add">
+                            <img src="/resources/cms/img/main/plus.svg" alt="">
+                            <div>팝업존 등록</div>
+                        </a>
                     </c:if>
                 </div>
                 <table class="custom-table">
