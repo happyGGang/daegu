@@ -160,7 +160,7 @@
                                     </td>
                                     <td>
                                         <c:if test="${not empty i.auth_group_id and (authC or authU or authD)}">
-                                            <a class="btn btn4 setModuleAuth" data-menu-idx="${i.menu_idx}" data-module-idx="${i.module_idx}" href="#">모듈권한설정</a>
+                                            <a class="custom-btn setModuleAuth" data-menu-idx="${i.menu_idx}" data-module-idx="${i.module_idx}" href="#">모듈권한설정</a>
                                         </c:if>
                                     </td>
                                 </c:when>
