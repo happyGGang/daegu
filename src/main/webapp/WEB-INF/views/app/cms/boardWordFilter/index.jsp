@@ -18,27 +18,39 @@ $(function() {
 	});
 });
 </script>
-<div class="wrapper wrapper-white">
-<form:form modelAttribute="boardWordFilter" action="save.do" method="post" onsubmit="return false;">
-	<div class="column ban">
-		<div>
-			<div class="infodesk">
-				게시판 단어 필터링 사용유무 : 
-				<form:radiobutton path="use_yn" value="Y" label="사용함"/>
-				<form:radiobutton path="use_yn" value="N" label="사용안함"/>
-				<div class="button btn-group inline">
-					<c:if test="${authC}">
-					<a href="" class="btn btn5 left" id="btn_save"><i class="fa fa-plus"></i><span>저장</span></a>
-					</c:if>
-				</div>
-			</div>
-			<div class="table-wrap">
-				<div class="ui-state-highlight">
-					<i class="fa fa-question-circle"></i><em>단어와 단어를 , 로 구분하여 주세요.(예 : 개나리, 십장생)</em>
-				</div>
-				<form:textarea path="word" cssStyle="width:100%; height:200px;"/>
-			</div>
-		</div>
-	</div>
-</form:form>	
+<div class="container-box">
+    <div class="page-header">
+        <div>게시글 불량단어 차단</div>
+    </div>
+
+    <div class="main-content" style="flex-direction: column">
+        <form:form modelAttribute="boardWordFilter" action="save.do" method="post" onsubmit="return false;" cssStyle="width: 100%">
+        <div class="table-action-wrapper">
+            <div class="btn-wrapper">
+                <p class="total-count">게시판 단어 필터링 사용유무 :</p>
+
+                <div class="btn-wrapper">
+                    <form:radiobutton path="use_yn" value="Y" />
+                    <label for="">사용함</label>
+                </div>
+
+                <div class="btn-wrapper">
+                    <form:radiobutton path="use_yn" value="N" />
+                    <label for="">사용안함</label>
+                </div>
+            </div>
+
+            <c:if test="${authC}">
+                <a href="" class="icon-btn navy" id="btn_save">
+                    <img src="/resources/cms/img/main/plus.svg" alt="">
+                    <div>저장</div>
+                </a>
+            </c:if>
+        </div>
+        <form:textarea path="word" cssStyle="height:200px;width: -webkit-fill-available; margin-top: 10px" cssClass="custom-input"/>
+        <ul class="guide-line" style="margin-top: 10px">
+            <li>단어와 단어를 , 로 구분하여 주세요. (예 : 개나리, 십장생)</li>
+        </ul>
+        </form:form>
+    </div>
 </div>

@@ -122,7 +122,7 @@
                         </form:select>
                     </div>
 
-                    <a href="" class="icon-btn nav" id="dialog-add">
+                    <a href="" class="icon-btn navy" id="dialog-add">
                         <img src="/resources/cms/img/main/plus.svg" alt="">
                         <div>게시판 등록</div>
                     </a>

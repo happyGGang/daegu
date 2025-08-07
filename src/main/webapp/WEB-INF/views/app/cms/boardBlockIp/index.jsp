@@ -51,7 +51,7 @@
         <div class="table-action-wrapper">
             <p class="total-count">총 ${fn:length(boardBlockIpList)}건</p>
 
-            <a href="" class="icon-btn nav" id="dialog-add">
+            <a href="" class="icon-btn navy" id="dialog-add">
                 <img src="/resources/cms/img/main/plus.svg" alt="">
                 <div>차단IP 추가</div>
             </a>
