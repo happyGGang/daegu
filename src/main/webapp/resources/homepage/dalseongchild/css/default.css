@@ -19,7 +19,7 @@ a:focus{color:#2b74c0}
 .tnb .util a {font-size:14px;color:#545454;font-weight:400;display:inline-block;margin-top:0;font-family: Pretendard-Regular, sans-serif;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:40px;font-size:0;background-size: contain}
+h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:60px;font-size:0;background-size: contain}
 h1.mobile-logo {display:none;width:230px;height:45px;}
 .Gnb .g-menu a.last-box_w{display:none;}
 .Gnb .g-menu a.last-box_b{display:block;}
@@ -28,7 +28,7 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 #header.background-white .libSite ul li.on a {color:#00853E;font-weight:600;}
 #header.background-white .tnb .util a {color:#545454;}
 #header.background-white .tnb .util b {color:#000;font-size: 14px;}
-#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:40px;font-size:0;background-size: contain}
+#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:60px;font-size:0;background-size: contain}
 #header.background-white .Gnb .g-menu a.last-box_w{display:block;}
 #header.background-white .Gnb .g-menu a.last-box_b{display:none;}
 #header.background-white .Gnb .gnb-menu > li > a{color: #000;font-size: 20px;font-weight: 500;font-family: Pretendard-Medium, sans-serif;padding: 10px 0;line-height: 43px;height: 43px;}
@@ -172,11 +172,11 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	table.color-set > tbody > tr > td{display:block}
 }
 
-@media all and (max-width:1024px){
+@media all and (max-width:1260px){
 	.tnb {height:68px;padding:0;}
 
 	h1.mobile-logo {display:block;width: fit-content;height: 28px;margin-top:20px;padding:0 0 0 36px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center !important;background-size:100% !important;width: 180px;height: 28px;font-size:0;}
+	h1.mobile-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center / cover !important;width: 112px;height: 30px;font-size:0;}
 
 	/* SNS 추가 */
 	.sns-box {position:absolute;display:none;left:220px;top:7px;}
@@ -196,6 +196,6 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 	.m-menu a {
 		right: 20px !important;
-		top: 14px !important;
+		top: 27px !important;
 	}
 }
