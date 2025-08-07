@@ -314,7 +314,7 @@
                     <div class="menuType html">
                         <c:choose>
                             <c:when test="${menu.editMode eq 'MODIFY'}">
-                                <a href="" class="custom-btn sky" id="modal_HTML">HTML 등록/수정</a>
+                                <a href="" class="custom-btn sky" id="modal_HTML" style="margin-top: 5px">HTML 등록/수정</a>
                                 <div id="dialog_HTML" class="dialog-common" title="HTML 등록/수정"></div>
                             </c:when>
                             <c:otherwise>

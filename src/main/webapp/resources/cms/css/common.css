@@ -658,6 +658,7 @@ tr.table-left td, tr.table-left th {
 
 .popup-table tbody tr td {
     color: #666;
+    background: #FFF;
     font-family: Pretendard-Regular, serif;
     font-size: 14px;
     font-style: normal;
@@ -887,6 +888,7 @@ tr.table-left td, tr.table-left th {
     background: #FFF;
     box-shadow: 0 4px 30px 0 rgba(24, 33, 109, 0.10);
     backdrop-filter: blur(100px);
+    z-index: 9999;
 }
 
 .ui-widget-header {

@@ -80,110 +80,129 @@ $(function(){
 
 });
 </script>
-<form:form id="popup_1" modelAttribute="popup" method="POST" action="save.do" onsubmit="return false;">
-<form:hidden id="editMode_1" path="editMode"/>
-<form:hidden id="popup_idx_1" path="popup_idx"/>
-<form:hidden id="homepage_id_1" path="homepage_id"/>
+<div class="container-box">
+    <form:form id="popup_1" modelAttribute="popup" method="POST" action="save.do" onsubmit="return false;">
+    <form:hidden id="editMode_1" path="editMode"/>
+    <form:hidden id="popup_idx_1" path="popup_idx"/>
+    <form:hidden id="homepage_id_1" path="homepage_id"/>
 
-<div id="editDisable" class="disableBox">
-	<c:if test="${popup.editMode eq 'FIRST'}">
-	<div class="mask"></div>
-	</c:if>
-	<div class="infodesk">
-		검색 결과 : ${paging.totalDataCount}건, 홈페이지 ID : ${popup.homepage_id}
-		<form:select path="link_target" class="selectmenu">
-			<option value="">링크타겟선택</option>
-			<form:option value="CURRENT">현재창</form:option>
-			<form:option value="BLANK">새창</form:option>
-		</form:select>
-		<form:select path="use_yn" class="selectmenu">
-			<option value="">사용여부선택</option>
-			<form:option value="Y">사용함</form:option>
-			<form:option value="N">사용안함</form:option>
-		</form:select>
-		<form:select path="rowCount" class="selectmenu" style="width:120px;">
-			<form:option value="10">10개씩 보기</form:option>
-			<form:option value="20">20개씩 보기</form:option>
-			<form:option value="30">30개씩 보기</form:option>
-			<form:option value="100">100개씩 보기</form:option>
-			<form:option value="200">200개씩 보기</form:option>
-		</form:select>
-		<div class="button btn-group inline">
-			<c:if test="${authC}">
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>팝업등록</span></a>
-			</c:if>
-		</div>
-	</div>
+        <div id="editDisable" class="disableBox">
+            <div class="page-header">
+                <div>팝업 관리</div>
+            </div>
+            <div class="main-content" style="flex-direction: column">
+                <div class="table-action-wrapper">
+                    <c:if test="${popup.editMode eq 'FIRST'}">
+                        <div class="mask"></div>
+                    </c:if>
+                    <div class="center">
+                        <p class="total-count">총 ${paging.totalDataCount}건, 홈페이지 ID : ${popup.homepage_id}</p>
 
-	<table class="type1 center">
-		<thead>
-			<tr>
-				<th width="40">순번</th>
-				<th width="200">이미지</th>
-				<th width="">팝업명</th>
-				<th width="100">링크타겟</th>
-				<th width="80">사용여부</th>
-				<th width="200">게시일</th>
-				<th width="80">출력순서</th>
-				<th width="120">등록일</th>
-				<th width="100">기능</th>
-			</tr>
-		</thead>
-		<tbody>
-		<c:if test="${fn:length(popupList) < 1}">
-			<tr>
-				<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
-			</tr>
-		</c:if>
-		<c:forEach var="i" varStatus="status" items="${popupList}">
-			<tr>
-				<td>${popup.listRowNum - status.index}</td>
-				<td width="200">
-					<div class="item">
-						<a href="${i.link_url}" target="_blank">
-							<c:if test="${i.org_file_name eq null}">
-							<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
-							</c:if>
-							<c:if test="${i.org_file_name ne null}">
-							<img width="45%" height="80px" src="${getContextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
-							</c:if>
-						</a>
-					</div>
-				</td>
-				<td class="left">${i.popup_name}</td>
-				<td>${i.link_target eq 'CURRENT' ? '현재창' : '새창'}</td>
-				<td width="50">${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
-				<td>${i.start_date} ~ ${i.end_date}</td>
-				<td>${i.print_seq}</td>
-				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
-				<td>
-					<c:if test="${authU}">
-						<a href="" class="btn" id="dialog-modify" keyValue="${i.homepage_id}" keyValue1="${i.popup_idx}">수정</a>
-					</c:if>
-					<c:if test="${authD}">
-						<a href="" class="btn" id="delete" keyValue="${i.homepage_id}" keyValue1="${i.popup_idx}">삭제</a>
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-		</tbody>
-	</table>
+                        <div class="btn-wrapper">
+                            <form:select path="link_target" class="custom-filter">
+                                <option value="">링크타겟선택</option>
+                                <form:option value="CURRENT">현재창</form:option>
+                                <form:option value="BLANK">새창</form:option>
+                            </form:select>
+                            <form:select path="use_yn" class="custom-filter">
+                                <option value="">사용여부선택</option>
+                                <form:option value="Y">사용함</form:option>
+                                <form:option value="N">사용안함</form:option>
+                            </form:select>
+                            <form:select path="rowCount" class="custom-filter" style="width:120px;">
+                                <form:option value="10">10개씩 보기</form:option>
+                                <form:option value="20">20개씩 보기</form:option>
+                                <form:option value="30">30개씩 보기</form:option>
+                                <form:option value="100">100개씩 보기</form:option>
+                                <form:option value="200">200개씩 보기</form:option>
+                            </form:select>
+                        </div>
+                    </div>
 
-	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#popup_1"/>
-	</jsp:include>
+                    <c:if test="${authC}">
+                        <a href="" class="icon-btn navy" id="dialog-add">
+                            <img src="/resources/cms/img/main/plus.svg" alt="">
+                            <div>팝업 등록</div>
+                        </a>
+                    </c:if>
+                </div>
 
-	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="popup_name">팝업명</form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-		</fieldset>
-	</div>
+                <table class="custom-table">
+                    <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>이미지</th>
+                        <th>팝업명</th>
+                        <th>링크타겟</th>
+                        <th>사용여부</th>
+                        <th>게시일</th>
+                        <th>출력순서</th>
+                        <th>등록일</th>
+                        <th>기능</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:if test="${fn:length(popupList) < 1}">
+                        <tr>
+                            <td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+                        </tr>
+                    </c:if>
+                    <c:forEach var="i" varStatus="status" items="${popupList}">
+                        <tr>
+                            <td>${popup.listRowNum - status.index}</td>
+                            <td width="200">
+                                <div class="item">
+                                    <a href="${i.link_url}" target="_blank">
+                                        <c:if test="${i.org_file_name eq null}">
+                                            <img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+                                        </c:if>
+                                        <c:if test="${i.org_file_name ne null}">
+                                            <img width="45%" height="80px" src="${getContextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
+                                        </c:if>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>${i.popup_name}</td>
+                            <td>${i.link_target eq 'CURRENT' ? '현재창' : '새창'}</td>
+                            <td width="50">${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
+                            <td>${i.start_date} ~ ${i.end_date}</td>
+                            <td>${i.print_seq}</td>
+                            <td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
+                            <td>
+                                <div class="btn-wrapper">
+                                    <c:if test="${authU}">
+                                        <a href="" class="custom-btn" id="dialog-modify" keyValue="${i.homepage_id}" keyValue1="${i.popup_idx}">수정</a>
+                                    </c:if>
+                                    <c:if test="${authD}">
+                                        <a href="" class="custom-btn" id="delete" keyValue="${i.homepage_id}" keyValue1="${i.popup_idx}">삭제</a>
+                                    </c:if>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
+                <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+                    <jsp:param name="formId" value="#popup_1"/>
+                </jsp:include>
+
+                <div class="table-search-bar">
+                    <fieldset class="search-bar">
+                        <form:select path="search_type" cssClass="custom-filter">
+                            <form:option value="popup_name">팝업명</form:option>
+                        </form:select>
+                        <form:input path="search_text" cssClass="custom-search"/>
+                        <div id="search_btn" class="icon-btn black">
+                            <img alt="" src="/resources/cms/img/main/search.svg">
+                            <div>검색</div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </form:form>
 </div>
-</form:form>
 
 <div id="dialog-1" class="dialog-common" title="팝업 정보">
 </div>

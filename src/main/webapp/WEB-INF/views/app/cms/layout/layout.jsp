@@ -22,13 +22,40 @@
 <script src="/resources/cms/js/cms/side.js" type="text/javascript"></script>
 </head>
 
+<style>
+    .search-autocomplete {
+        width: 100%;
+        padding: 10px;
+        display: flex !important;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .search-autocomplete li {
+        color: #555;
+        font-family: Pretendard-Regular, serif;
+        font-size: 14px;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.28px;
+        cursor: pointer;
+    }
+
+    .search-autocomplete li:hover {
+        font-family: Pretendard-Bold, serif;
+    }
+</style>
+
 <body>
     <script type="text/javascript">
         let idleTimeout, logoutTimeout, countdownInterval;
         let isWarningActive = false;
 
-        const warningTime = 10 * 60 * 1000;
-        const logoutTime = 11 * 60 * 1000;
+        const warningTime = 60 * 60 * 1000;
+        const logoutTime = 61 * 60 * 1000;
+
+        // const warningTime = 690 * 60 * 1000;
+        // const logoutTime = 691 * 60 * 1000;
 
         function resetSessionTimers() {
             clearTimeout(idleTimeout);
@@ -156,7 +183,9 @@
                 <a class="caption" href="" style="margin: 24px 0" onclick="javascript:parent.location.href='/sjs/adminMenu/index.do'; return false;">[ SJS 관리 이동 ]</a>
             </c:if>
 
-<%--            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>--%>
+
+            <input type="text" id="menuSearchInput" placeholder="메뉴명을 검색해주세요" autocomplete="off" class="custom-search" style="width:-webkit-fill-available"/>
+
             <ul id="menuSearchResults" class="search-autocomplete"></ul>
 
             <div class="menu-list">
