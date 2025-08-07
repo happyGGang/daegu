@@ -130,7 +130,7 @@
                                 <form:option value="Y">사용함</form:option>
                                 <form:option value="N">사용안함</form:option>
                             </form:select>
-                            <form:select path="rowCount" class="selectmenu" style="width:120px;">
+                            <form:select path="rowCount" class="custom-filter" style="width:120px;">
                                 <form:option value="10">10개씩 보기</form:option>
                                 <form:option value="20">20개씩 보기</form:option>
                                 <form:option value="30">30개씩 보기</form:option>
