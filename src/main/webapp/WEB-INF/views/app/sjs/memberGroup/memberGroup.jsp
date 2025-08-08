@@ -209,7 +209,10 @@
                     </a>
                 </c:if>
                 <c:if test="${memberGroup.member_group_idx > 0 and memberGroup.default_group_yn ne 'Y'}">
-                    <a class="icon-btn gray" href="" id="editGroup_modify">수정</a>
+                    <a class="icon-btn navy" href="" id="editGroup_modify">
+                        <img alt="" src="/resources/cms/img/main/fix.svg">
+                        <div>수정</div>
+                    </a>
                     <a class="icon-btn red" href="" id="editGroup_delete">
                         <img alt="" src="/resources/cms/img/main/delete.svg">
                         <div>삭제</div>
@@ -223,8 +226,11 @@
                     <col width="33%"/>
                 </colgroup>
                 <thead>
-
-                
+                    <tr>
+                        <th>상위그룹명</th>
+                        <th>그룹명</th>
+                        <th>설명</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <tr>

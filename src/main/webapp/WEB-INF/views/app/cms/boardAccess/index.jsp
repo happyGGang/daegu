@@ -149,7 +149,7 @@
                     <form:select path="end_year" class="custom-date" style="width:80px"></form:select>
                 </div>
                 <div id="monthBox">
-                    <form:select path="start_month" cssClass="custom-select" cssStyle="width:150px;">
+                    <form:select path="start_month" class="custom-select" style="width:200px; padding: 10px 43px 10px 12px;">
                         <form:option value="01">1월 통계</form:option>
                         <form:option value="02">2월 통계</form:option>
                         <form:option value="03">3월통계</form:option>

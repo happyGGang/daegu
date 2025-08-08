@@ -235,12 +235,14 @@
                     <p id="tilde" class="caption">~</p>
                     <form:input type="text" id="dateEnd" path="end_date" class="custom-date ui-calendar"/>
                 </div>
-                <div id="startYearBox">
-                    <form:select path="start_year" class="selectmenu" cssStyle="width:100px;"></form:select>
-                </div>
-                <div id="endYearBox">
-                    <p id="yearTilde" class="caption">~</p>
-                    <form:select path="end_year" class="custom-date" cssStyle="width:100px;"></form:select>
+                <div class="btn-wrapper">
+                    <div id="startYearBox">
+                        <form:select path="start_year" class="custom-select" style="width:200px; padding: 10px 43px 10px 12px;"></form:select>
+                    </div>
+                    <div id="endYearBox" class="btn-wrapper">
+                        <p id="yearTilde" class="caption">~</p>
+                        <form:select path="end_year" class="custom-date" cssStyle="width:100px;"></form:select>
+                    </div>
                 </div>
 
                 <div id="searchBtn" class="icon-btn black">
