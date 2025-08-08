@@ -56,7 +56,7 @@
     <tfoot>
     <tr>
         <th>합계</th>
-        <td colspan="2">${homepageAccessResult[0].total_count}<em>(100%)</em></td>
+        <td>${homepageAccessResult[0].total_count}<em>(100%)</em></td>
     </tr>
     </tfoot>
 </table>

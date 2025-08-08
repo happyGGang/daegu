@@ -155,11 +155,11 @@
                     <option value="MONTH">월간별</option>
                     <option value="YEAR">연간별</option>
                 </form:select>
-                <b>
+                <div>
                     <form:input type="text" id="dateStart" path="start_date" class="custom-date ui-calendar" cssStyle="width: 153px"/>
                     <span id="tilde" class="caption">~</span>
                     <form:input type="text" id="dateEnd" path="end_date" class="custom-date ui-calendar" cssStyle="width: 153px" />
-                </b>
+                </div>
                 <div id="startYearBox">
                     <form:select path="start_year" class="custom-date" style="width: 153px"></form:select>
                 </div>

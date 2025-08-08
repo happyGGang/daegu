@@ -114,7 +114,7 @@
             </c:forEach>
         <tr>
             <th>합계</th>
-            <td colspan="2">${totalCount}<em>${totalCount eq 0 ? ' (0%)' : ' (100%)'}</em></td>
+            <td><div class="caption">${totalCount}${totalCount eq 0 ? ' (0%)' : ' (100%)'}</div></td>
         </tr>
     </tbody>
 </table>
