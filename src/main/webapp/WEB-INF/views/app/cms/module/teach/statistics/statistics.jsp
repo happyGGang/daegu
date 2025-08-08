@@ -8,7 +8,7 @@ $(function(){
 });
 </script>
 
-<table id="statisticsResult" class="chartData center">
+<table id="statisticsResult" class="chartData custom-table">
 	<thead>
 		<tr>
 			<th width="100">대분류</th>	
@@ -42,12 +42,9 @@ $(function(){
 				<td>${i.join_count - i.cert_ok_count} / ${i.cert_ok_count}</td>
 			</tr>
 		</c:forEach>
+        <tr>
+            <th>합계</th>
+            <td colspan="7">전체 모집 인원 : ${total_teach_count}, 전체 참여 인원 : ${total_join_count}, 전체 수료 인원 : ${total_cert_fail_count}, 전체 미수료 인원 : ${total_cert_ok_count}</td>
+        </tr>
 	</tbody>
-	<tfoot>
-		<tr>
-			<th>합계</th>
-			<td colspan="7">전체 모집 인원 : ${total_teach_count}, 전체 참여 인원 : ${total_join_count}, 전체 수료 인원 : ${total_cert_fail_count}, 전체 미수료 인원 : ${total_cert_ok_count}</td>
-			<!-- <td colspan="2">4321 <em>(100%)</em></td> -->
-		</tr>
-	</tfoot>
 </table>

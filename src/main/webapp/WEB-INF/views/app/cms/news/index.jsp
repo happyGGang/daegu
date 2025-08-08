@@ -85,8 +85,7 @@
         <form:form id="newsListForm" modelAttribute="news" action="index.do">
             <form:hidden id="homepage_id_1" path="homepage_id"/>
 
-            <div class="table-action-wrapper">
-                <div class="center">
+
                     <p class="total-count">총 ${newsListCount}건, 홈페이지 ID : ${news.homepage_id}</p>
                     <div class="btn-wrapper">
                         <form:select path="use_yn" class="custom-filter">

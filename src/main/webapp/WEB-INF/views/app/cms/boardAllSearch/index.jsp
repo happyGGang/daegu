@@ -215,7 +215,7 @@
 <%--                        <a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>--%>
 <%--                    </c:if>--%>
                     <c:if test="${paging.prevPageNum > 0}">
-                        <a href="" class="paginate_button previous pagination-btn" keyValue="${paging.prevPageNum}">
+                        <a href="" class="paginate_button previous pagination-btn" keyValue="${paging.prevPageNum}" style="margin-right: 28px">
                             <img src="/resources/cms/img/main/prev.svg" alt="">
                         </a>
                     </c:if>
@@ -231,7 +231,7 @@
                         </c:choose>
                     </c:forEach>
                     <c:if test="${paging.nextPageNum > 0}">
-                        <a href="" class="pagination-btn next" keyValue="${paging.nextPageNum}">
+                        <a href="" class="pagination-btn next" keyValue="${paging.nextPageNum}" style="margin-left: 28px">
                             <img src="/resources/cms/img/main/next.svg" alt="">
                         </a>
                     </c:if>
