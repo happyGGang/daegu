@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.division.DivisionDao">
+
+	<select id="getDivisionList" resultType="kr.go.gbelib.app.cms.module.division.Division">
+		SELECT
+		    idx, name, parent_idx, depth, code,
+		    use_yn, add_date, mod_date
+		FROM
+			DIVISION
+		WHERE DEPTH = 1
+        AND USE_YN = 'Y'
+        ORDER BY NAME
+	</select>
+
+	<select id="findByDepthAndParent" resultType="kr.go.gbelib.app.cms.module.division.Division">
+		SELECT *
+        FROM DIVISION
+        WHERE DEPTH = #{depth}
+          AND PARENT_IDX = #{parent_idx}
+          AND USE_YN = 'Y'
+        ORDER BY NAME
+	</select>
+
+	<insert id="addCheckInOutNotice">
+		<selectKey keyProperty="checkinout_notice_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(checkinout_notice_idx), 0)+1 FROM CHECKINOUT_SETTING
+		</selectKey>
+		INSERT INTO CHECKINOUT_SETTING
+		(
+			homepage_id, checkinout_notice_idx, checkinout_notice_name, delete_yn, use_yn,
+			checkinout_notice_start_date, checkinout_notice_end_date, add_date, add_id, modify_date,
+			modify_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{checkinout_notice_idx}, #{checkinout_notice_name}, 'N', 'Y',
+			#{checkinout_notice_start_date}, #{checkinout_notice_end_date}, SYSDATE, #{add_id}, #{modify_date},
+			#{modify_id}
+		)
+	</insert>
+
+	<update id="modifyCheckInOutNotice">
+		UPDATE
+			CHECKINOUT_SETTING
+		SET
+			checkinout_notice_name = #{checkinout_notice_name},
+			use_yn = #{use_yn},
+			checkinout_notice_start_date = #{checkinout_notice_start_date},
+			checkinout_notice_end_date = #{checkinout_notice_end_date},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_notice_idx = #{checkinout_notice_idx}
+	</update>
+</mapper>
