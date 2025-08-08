@@ -2603,9 +2603,9 @@ public class IndexController extends BaseController {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
 				t.setHomepage_id(homepage.getHomepage_id());
-				t.setSearchCate1("16");
+				t.setSearchCate1("21");
 				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
-				t.setSearchCate1("17");
+				t.setSearchCate1(null);
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}

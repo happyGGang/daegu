@@ -168,58 +168,62 @@ $(function(){
 });
 </script>
 <c:set var="plan_date" value="${fn:split(calendarManage.plan_date, '-')}" />
-<form:form modelAttribute="calendarManage">
-	<form:hidden path="plan_date"/>
-	<c:choose>
-		<c:when test="${fn:length(subHomepageList) > 0}">
-			도서관 :
-			<form:select id="homepage_id_1" path="homepage_id">
-				<c:forEach items="${subHomepageList}" var="i">
-					<form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
-				</c:forEach>
-				<c:if test="${asideHomepageId eq 'h53'}">
-					<form:option value="h78">작은도서관</form:option>
-				</c:if>
+<div class="container-box">
+    <div class="page-header">
+        <div>일정관리</div>
+    </div>
+    <div class="main-content">
+        <div style="width: 100%">
+            <form:form modelAttribute="calendarManage">
+            <form:hidden path="plan_date"/>
+            <c:choose>
+                <c:when test="${fn:length(subHomepageList) > 0}">
+                    도서관 :
+                    <form:select id="homepage_id_1" path="homepage_id">
+                        <c:forEach items="${subHomepageList}" var="i">
+                            <form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
+                        </c:forEach>
+                        <c:if test="${asideHomepageId eq 'h53'}">
+                            <form:option value="h78">작은도서관</form:option>
+                        </c:if>
 
-			</form:select>
-		</c:when>
-		<c:otherwise>
-			<form:hidden id="homepage_id_1" path="homepage_id"/>
-		</c:otherwise>
-	</c:choose>
+                    </form:select>
+                </c:when>
+                <c:otherwise>
+                    <form:hidden id="homepage_id_1" path="homepage_id"/>
+                </c:otherwise>
+            </c:choose>
 
-	<div class="infodesk">
-		<div class="monthYear">
-			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
-			<form:select path="plan_year" class="selectmenu" style="width:100px;"></form:select>
-	        <form:select path="plan_month" class="selectmenu" style="width:100px;"></form:select>
-	        <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
-	    </div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn3 left" id="changeView"><i class="fa fa-calendar"></i><span>달력형 전환</span></a>
-		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>일정등록</span></a>
-		</div>
-		<c:if test="${calendarManage.homepage_id ne 'h78'}">
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(월단위)</span></a>
-		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las-year"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(년단위)</span></a>
-		</div>
-		</c:if>
-	</div>
-</form:form>
-	<div class="table-wrap" id="calTable">
-		<table class="type1 center">
-			<colgroup>
-				<col width="10%"/>
-				<col />
-			</colgroup>
+            <div class="table-action-wrapper">
+                <div class="monthYear btn-wrapper">
+                    <a id="before-btn" href="#prev" class="custom-btn" style="padding: 8px 10px"><span class="blind" ><img src="/resources/cms/img/main/arrow.svg" alt="" style="transform: rotate(180deg)"/> </span></a>
+                    <form:select path="plan_year" class="custom-filter" style="width:100px;"></form:select>
+                    <form:select path="plan_month" class="custom-filter" style="width:100px;"></form:select>
+                    <a id="next-btn" href="#next" class="custom-btn" style="padding: 8px 10px"><span class="blind"><img src="/resources/cms/img/main/arrow.svg" alt=""/> </span></a>
+                </div>
+                <div class="btn-wrapper">
+                    <div class="button btn-group inline">
+                        <a href="" class="icon-btn navy" id="changeView"><img src="/resources/cms/img/main/plus.svg" alt=""><span>달력형 전환</span></a>
+                    </div>
+                    <div class="button btn-group inline">
+                        <a href="" class="icon-btn navy" id="dialog-add"><img src="/resources/cms/img/main/plus.svg" alt=""><span>일정등록</span></a>
+                    </div>
+                    <c:if test="${calendarManage.homepage_id ne 'h78'}">
+                    <div class="button btn-group inline">
+                        <a href="" class="icon-btn navy" id="dialog-add-las"><img src="/resources/cms/img/main/plus.svg" alt=""><span>자료관리 휴관일 가져오기(월단위)</span></a>
+                    </div>
+                    <div class="button btn-group inline">
+                        <a href="" class="icon-btn navy" id="dialog-add-las-year"><img src="/resources/cms/img/main/plus.svg" alt=""><span>자료관리 휴관일 가져오기(년단위)</span></a>
+                    </div>
+                    </c:if>
+                </div>
+            </div>
+        </form:form>
+            <div class="table-wrap" id="calTable">
+		<table class="custom-table">
 			<thead>
 				<tr>
-					<th scope="col">일자</th>
+					<th scope="col" style="width: 200px">일자</th>
 					<th scope="col">내용</th>
 				</tr>
 			</thead>
@@ -246,7 +250,9 @@ $(function(){
 			</tbody>
 		</table>
 	</div>
-
+        </div>
+    </div>
+</div>
 
 <div id="dialog-1" class="dialog-common" title="일정등록">
 </div>

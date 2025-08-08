@@ -385,18 +385,18 @@ do {
 
 					<!--         평생학습프로그램           -->
 					<div class="tab-content2" style="display: none">
-						<c:if test="${fn:length(teachList2) < 1}">
+<%--						<c:if test="${fn:length(teachList2) < 1}">--%>
 							<div class="no-culture">등록된 프로그램이 없습니다.</div>
-						</c:if>
-						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='3'>
-							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
-								<div class="label">${i.large_category_name}</div>
-								<div class="tab-content-detail">
-									<div>${i.teach_name}</div>
-									<div>${i.start_date} ~ ${i.end_date}</div>
-								</div>
-							</a>
-						</c:forEach>
+<%--						</c:if>--%>
+<%--						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='3'>--%>
+<%--							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">--%>
+<%--								<div class="label">${i.large_category_name}</div>--%>
+<%--								<div class="tab-content-detail">--%>
+<%--									<div>${i.teach_name}</div>--%>
+<%--									<div>${i.start_date} ~ ${i.end_date}</div>--%>
+<%--								</div>--%>
+<%--							</a>--%>
+<%--						</c:forEach>--%>
 					</div>
 				</div>
 			</div>
