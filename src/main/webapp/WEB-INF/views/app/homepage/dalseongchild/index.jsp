@@ -448,7 +448,7 @@ do {
 									</c:otherwise>
 								</c:choose>
 							</a>
-							<a href="" class="title">
+							<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" class="title">
 								<div>${i.title}</div>
 								<img src="/resources/homepage/dalseongchild/img/book/arrow.svg" alt="">
 							</a>

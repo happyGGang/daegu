@@ -1164,3 +1164,76 @@ tr.table-left td, tr.table-left th {
     border-radius: 4px;
     background: #F6F7FA;
 }
+
+
+/* 통계 그래프 */
+.graphArea{clear:both;padding:15px 0 20px}
+.graphArea ul.num{width:52px;overflow:hidden}
+.graphArea ul.num li{text-align:right;padding-right:8px;height:30px;line-height:30px}
+.graphArea ul.num,
+.graphArea .graphWrap .graph,
+.graphArea .graphWrap .graph li,
+.graphArea li .barWrap{height:210px;position:relative}
+.graphArea ul.num,
+.graphArea .graphWrap .graph{border-color:#ccc}
+.graphArea .graphWrap{width:100%;float:left;margin-right:-52px}
+.graphArea .graphWrap .graph{border:1px solid #ccc;border-right-width:0;border-top-width:0;margin-right:52px;background:url('../img/graphLine.gif') repeat-x}
+.graphArea .graphWrap .graph li{float:left;text-align:center}
+.graphArea ul.num{float:left;width:52px}
+.graphArea ul.num li,
+.graphArea li .txt{font-size:80%}
+.graphArea *{
+    -webkit-transition:all 100ms ease;
+    -moz-transition:all 100ms ease;
+    -ms-transition:all 100ms ease;
+    -o-transition:all 100ms ease;
+    transition:all 100ms ease}
+.graphArea li{z-index:9}
+.graphArea li.on{z-index:10}
+.graphArea li .txt{position:absolute;left:0;width:100%;color:#999;text-align:center;text-decoration:none;padding:5px 0 0;line-height:120%}
+.graphArea li .txt:hover,.graphArea li .txt:active,.graphArea li .txt:visited{text-decoration:none}
+.graphArea li.most .txt,
+.graphArea li.on .txt{color:#000}
+.graphArea li .barWrap{padding:0 1px}
+.graphArea li .gauge{position:absolute;z-index:11;bottom:0;left:50%;width:70%;margin-left:-35%;background-color:#ccc;cursor:pointer}
+.graphArea li .gauge1,
+.graphArea li .gauge2{width:25%}
+.graphArea li .gauge1{left:35%;margin-left:-15%}
+.graphArea li .gauge2{left:25%;margin-left:30%}
+.graphArea li .gauge_ly{display:none;position:absolute;z-index:12;top:-28px;height:28px;left:4px;background:url('../img/gauge_ly_line.gif') no-repeat 0 bottom;font-size:85%}
+.graphArea li .gauge_ly p{padding:3px 6px 3px 7px;margin-left:5px;color:#fff;white-space:nowrap;display:block;background-color:#666867}
+.graphArea li .gauge_ly p em{position:relative;top:1px;margin-right:-3px;font-weight:bold;font-family:arial;font-size:110%}
+.graphArea li.on .gauge,
+.graphArea li.on .gauge:hover{background-color:#78ac39}
+.graphArea li.on .gauge1 .gauge_ly,
+.graphArea li.on .gauge2 .gauge_ly{display:none}
+.graphArea li.on .gauge_ly,
+.graphArea li.on .gauge1:hover .gauge_ly,
+.graphArea li.on .gauge2:hover .gauge_ly,
+.graphArea li .gauge.most .gauge_ly{display:block}
+.graphArea li.on .gauge1,
+.graphArea li .gauge1{background-color:#343434}
+.graphArea li.on .gauge2,
+.graphArea li .gauge2{background-color:#78ac39}
+.graphArea li .gauge1:hover{background-color:#5d5d5d!important}
+.graphArea li .gauge2:hover{background-color:#93bd61!important}
+
+.graphArea .graphLegend{clear:both;overflow:hidden;padding:35px 0 0;text-align:center}
+.graphArea .graphLegend li,
+.graphArea .graphLegend i,
+.graphArea .graphLegend span{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.graphArea .graphLegend li{zoom:1;*display:inline;font-size:85%;margin:0 5px}
+.graphArea .graphLegend i{font-style:normal;width:12px;height:12px;font-size:0;line-height:0;background-color:#ccc;border-radius:50%}
+.graphArea .graphLegend span{margin-left:5px}
+
+.textareaBox{border:1px solid #ddd;font-size:0;margin-bottom:10px}
+.textareaBox textarea{border:none;width:100%;font-size:13px}
+
+table.chartData{clear:both;margin-top:10px}
+table.chartData th,
+table.chartData td{font-size:90%}
+table.chartData td.ratio{border-left:0}
+table.chartData td.ratio em,
+table.chartData em{font-style:normal;font-size:90%;color:#777}
+table.chartData td.ratioBar{border-right:0;padding-right:0}
+table.chartData td.ratioBar .bar{padding: 10px;background:#647080;display: inline-table; color: #fff}
