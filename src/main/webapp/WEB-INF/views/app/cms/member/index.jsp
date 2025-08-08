@@ -93,7 +93,7 @@
                 <thead>
                     <tr>
                         <th>순번</th>
-                        <th>사용자ID</th>
+                        <th>사용자 ID</th>
                         <th>사용자명</th>
                         <th>전화번호</th>
                         <th>사용자 타입</th>
@@ -111,7 +111,7 @@
                 <c:forEach var="i" varStatus="status" items="${memberList}">
                     <tr>
                         <td>${paging.listRowNum - status.index}</td>
-                        <td class="left">${i.member_id}</td>
+                        <td>${i.member_id}</td>
                         <td>${i.member_name}</td>
                         <td>${i.phone}</td>
                         <td>${i.link_member_yn eq 'Y' ? 'LAS 연결회원':''}</td>

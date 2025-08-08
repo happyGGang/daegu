@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<table id="accessTableData" class="chartData">
+<table id="accessTableData" class="chartData custom-table">
 	<thead>
 		<tr>
 			<th colspan="2">메뉴명</th>
@@ -12,14 +12,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="i" varStatus="status" items="${menuAccessResult}">	
-			<%-- <tr<% if(j%2==0){ %> class="even"<% } %>> --%>
+		<c:forEach var="i" varStatus="status" items="${menuAccessResult}">
 			<tr>
-				<td class="left" colspan="2">
+				<td colspan="2">
 				<c:forEach var="j" begin="2" end="${i.menu_level}">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
 				${i.menu_name}</td>
-				<td class="ratio left" colspan="2">${i.access_count}<%-- <em>(<fmt:formatNumber value="${i.result_count / homepageAccessResult[0].total_count * 100}" pattern="0"/>%)</em> --%></td>
-				<td class="ratio left" colspan="1">
+				<td class="ratio" colspan="2">${i.access_count}</td>
+				<td class="ratio" colspan="1">
 				<c:if test="${menuAccessResult[0].total_count == 0}">
 					0
 				</c:if>
@@ -29,19 +28,17 @@
 				%</td>
 			</tr>
 		</c:forEach>
+        <tr>
+            <th colspan="2">합계</th>
+            <td colspan="2">${menuAccessResult[0].total_count}</td>
+            <td colspan="1">
+                <c:if test="${menuAccessResult[0].total_count == 0}">
+                    0
+                </c:if>
+                <c:if test="${menuAccessResult[0].total_count != 0}">
+                    100
+                </c:if>
+                %</td>
+        </tr>
 	</tbody>
-	<tfoot>
-		<tr>
-			<th colspan="2">합계</th>
-			<td colspan="2">${menuAccessResult[0].total_count}</td>
-			<td colspan="1">
-				<c:if test="${menuAccessResult[0].total_count == 0}">
-					0
-				</c:if>
-				<c:if test="${menuAccessResult[0].total_count != 0}">
-					100
-				</c:if>
-			%</td>
-		</tr>
-	</tfoot>
 </table>
