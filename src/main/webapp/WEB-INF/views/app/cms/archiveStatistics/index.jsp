@@ -99,8 +99,7 @@
                 </form:select>
                 <div class="btn-wrapper">
                     <form:input type="text" path="search_date" class="custom-date ui-calendar"/>
-                    <form:select class="custom-select" style="width:200px; padding: 10px 43px 10px 12px;" path="year"></form:select>
-                    <form:select class="custom-select" style="width:200px; padding: 10px 43px 10px 12px;" path="month"></form:select>
+                    <form:select class="custom-seleect" style="width:200px; padding: 10px 43px 10px 12px;" path="month"></form:select>
                 </div>
                 <div id="searchBtn" class="icon-btn black">
                     <img src="/resources/cms/img/main/search.svg" alt="">
