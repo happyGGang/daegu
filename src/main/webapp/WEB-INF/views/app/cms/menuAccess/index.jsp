@@ -81,7 +81,7 @@
 
 <div class="container-box">
     <div class="page-header">
-        <div>메뉴 접속사</div>
+        <div>메뉴 접속자 통계</div>
     </div>
 
     <div class="main-content" style="flex-direction: column">
