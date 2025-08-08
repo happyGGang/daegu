@@ -119,7 +119,7 @@
                 </c:forEach>
                 <tr>
                     <th>합계</th>
-                    <td colspan="3" class="center">전체 트위터 수 : ${totalTwitter}, 전체 페이스북 수 : ${totalFacebook}, 전체 카카오스토리 수
+                    <td colspan="3">전체 트위터 수 : ${totalTwitter}, 전체 페이스북 수 : ${totalFacebook}, 전체 카카오스토리 수
                         : ${totalKakaostory}</td>
                 </tr>
             </tbody>
