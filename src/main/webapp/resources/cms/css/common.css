@@ -1154,3 +1154,10 @@ tr.table-left td, tr.table-left th {
 .ui-datepicker .ui-widget-header{
     height: 54px;
 }
+
+.filter-gap{
+     display: flex;
+     align-items: center;
+     gap: 12px;
+    margin-right: 24px
+ }
