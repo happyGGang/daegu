@@ -13,7 +13,7 @@ String pagingUrl = request.getParameter("pagingUrl")==null?"index.do":request.ge
     <!--        <a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>-->
     <!--    </c:if>-->
     <c:if test="${paging.prevPageNum > 0}">
-        <a class="pagination-btn previous" href="" keyValue="${paging.prevPageNum}">
+        <a class="pagination-btn previous" href="" keyValue="${paging.prevPageNum}" style="margin-right: 28px">
             <img src="/resources/cms/img/main/prev.svg" alt="">
         </a>
     </c:if>
@@ -28,7 +28,7 @@ String pagingUrl = request.getParameter("pagingUrl")==null?"index.do":request.ge
             </c:choose>
         </c:forEach>
         <c:if test="${paging.nextPageNum > 0}">
-            <a class="pagination-btn next" href="" keyValue="${paging.nextPageNum}">
+            <a class="pagination-btn next" href="" keyValue="${paging.nextPageNum}" style="margin-left: 28px">
                 <img src="/resources/cms/img/main/next.svg" alt="">
             </a>
         </c:if>
