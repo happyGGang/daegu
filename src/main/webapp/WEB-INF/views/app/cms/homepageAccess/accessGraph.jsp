@@ -65,66 +65,56 @@
 	</ul>
 </div>
 
+<div style="clear:both">&nbsp;</div><br/>
 
-<div style="clear:both">&nbsp;</div>
-<br/>
-
-<table id="accessTableData" class="chartData">
-<thead>
-	<tr>
-		<c:choose>
-			<c:when test="${homepageAccess.date_type == 'TIME'}">
-				<th width="200">시간</th>
-			</c:when>
-			<c:when test="${homepageAccess.date_type == 'DAY'}">
-				<th width="200">일</th>
-			</c:when>
-			<c:when test="${homepageAccess.date_type == 'MONTH'}">
-				<th width="200">월</th>
-			</c:when>
-			<c:when test="${homepageAccess.date_type == 'YEAR'}">
-				<th width="200">년</th>
-			</c:when>
-		</c:choose>
-
-		<th colspan="2">접속자 수</th>
-		<!-- <th colspan="2">로그인 수</th> -->
-	</tr>
-</thead>
-<tbody>
-	<c:forEach var="i" varStatus="status" items="${homepageAccessResult}">
-		<%-- <tr<% if(j%2==0){ %> class="even"<% } %>> --%>
-		<tr>
-			<td class="left">${i.result_date}
-				<c:choose>
-					<c:when test="${homepageAccess.search_type eq 'OS'}"> / ${i.operating_system}</c:when>
-					<c:when test="${homepageAccess.search_type eq 'BROWSER'}"> / ${i.browser_type}</c:when>
-					<c:when test="${homepageAccess.search_type eq 'DEVICE'}"> / ${i.access_system}</c:when>
-				</c:choose>
-			</td>
-			<td style="width:250px" class="ratioBar">
-				<c:if test="${homepageAccessResult[0].total_count ne 0}">
-					<p style="width:${i.result_count / homepageAccessResult[0].total_count * 100}%"></p>
-				</c:if>
-			</td>
-			<td style="width:150px" class="ratio left">
-				<c:if test="${homepageAccessResult[0].total_count ne 0}">
-					${i.result_count}<em>(<fmt:formatNumber value="${i.result_count / homepageAccessResult[0].total_count * 100}" pattern="0"/>%)</em>
-				</c:if>
-				<c:if test="${homepageAccessResult[0].total_count eq 0}">
-				0<em>(0%)</em>
-				</c:if>
-			</td>
-			<!-- <td style="width:250px" class="ratioBar"><p style="width:80%"></p></td>
-			<td style="width:150px" class="ratio left">4321 <em>(10%)</em></td> -->
-		</tr>
-	</c:forEach>
-</tbody>
-<tfoot>
-	<tr>
-		<th>합계</th>
-		<td colspan="2">${homepageAccessResult[0].total_count}<em>(100%)</em></td>
-		<!-- <td colspan="2">4321 <em>(100%)</em></td> -->
-	</tr>
-</tfoot>
+<table id="accessTableData" class="chartData custom-table">
+    <thead>
+        <tr>
+            <c:choose>
+                <c:when test="${homepageAccess.date_type == 'TIME'}">
+                    <th width="200">시간</th>
+                </c:when>
+                <c:when test="${homepageAccess.date_type == 'DAY'}">
+                    <th width="200">일</th>
+                </c:when>
+                <c:when test="${homepageAccess.date_type == 'MONTH'}">
+                    <th width="200">월</th>
+                </c:when>
+                <c:when test="${homepageAccess.date_type == 'YEAR'}">
+                    <th width="200">년</th>
+                </c:when>
+            </c:choose>
+            <th>접속자 수</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:set var="totalCount" value="${homepageAccessResult[0].total_count}"/>
+            <c:forEach var="i" varStatus="status" items="${homepageAccessResult}">
+                <tr>
+                    <td>${i.result_date}
+                        <c:choose>
+                            <c:when test="${homepageAccess.search_type eq 'OS'}"> / ${i.operating_system}</c:when>
+                            <c:when test="${homepageAccess.search_type eq 'BROWSER'}"> / ${i.browser_type}</c:when>
+                            <c:when test="${homepageAccess.search_type eq 'DEVICE'}"> / ${i.access_system}</c:when>
+                        </c:choose>
+                    </td>
+                    <td style="width:250px" class="ratioBar">
+                        <c:choose>
+                            <c:when test="${i.result_count ne 0}">
+                                <div class="bar" style="width:${(i.result_count / totalCount) * 100}%">
+                                    ${i.result_count} (<fmt:formatNumber value="${(i.result_count / totalCount) * 100}" pattern="0"/>%)
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="caption">0 (0%)</div>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
+        <tr>
+            <th>합계</th>
+            <td colspan="2">${totalCount}<em>${totalCount eq 0 ? ' (0%)' : ' (100%)'}</em></td>
+        </tr>
+    </tbody>
 </table>
